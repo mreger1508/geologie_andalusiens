@@ -30,100 +30,52 @@
         <script src="js/rbush.min.js"></script>
         <script src="js/labelgun.min.js"></script>
         <script src="js/labels.js"></script>
-        <script src="data/Erdzeitalter_0.js"></script>
-        <script src="data/Lithologie_1.js"></script>
-        <script src="data/Andalusien_2.js"></script>
+        <script src="js/leaflet.wms.js"></script>
+        <script src="data/Erdzeitalter_1.js"></script>
+        <script src="data/Lithologie_2.js"></script>
+        <script src="data/Andalusien_3.js"></script>
         <script>
         var map = L.map('map', {
             zoomControl:true, maxZoom:28, minZoom:1
-        }).fitBounds([[35.12949555329657,-7.795455128578564],[39.56068881159869,-1.4366898042328538]]);
+        }).fitBounds([[35.72269488981817,-7.755288904237472],[38.96598166561983,-1.4498380580463293]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
         L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
         var bounds_group = new L.featureGroup([]);
         function setBounds() {
+            map.setMaxBounds(map.getBounds());
         }
-        function pop_Erdzeitalter_0(feature, layer) {
+        map.createPane('pane_TopPlusOpenLightGrau_0');
+        map.getPane('pane_TopPlusOpenLightGrau_0').style.zIndex = 400;
+        var layer_TopPlusOpenLightGrau_0 = L.WMS.layer("https://sgx.geodatenzentrum.de/wms_topplus_open", "web_light_grau", {
+            pane: 'pane_TopPlusOpenLightGrau_0',
+            format: 'image/png',
+            uppercase: true,
+            transparent: true,
+            continuousWorld : true,
+            tiled: true,
+            info_format: 'text/html',
+            opacity: 1,
+            identify: false,
+            attribution: '',
+        });
+        map.addLayer(layer_TopPlusOpenLightGrau_0);
+        function pop_Erdzeitalter_1(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['qc_id'] !== null ? autolinker.link(feature.properties['qc_id'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['id'] !== null ? autolinker.link(feature.properties['id'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['gid'] !== null ? autolinker.link(feature.properties['gid'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['area'] !== null ? autolinker.link(feature.properties['area'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['perimeter'] !== null ? autolinker.link(feature.properties['perimeter'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['geopb_'] !== null ? autolinker.link(feature.properties['geopb_'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['geopb_id'] !== null ? autolinker.link(feature.properties['geopb_id'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['codigofaci'] !== null ? autolinker.link(feature.properties['codigofaci'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['id_unidadc'] !== null ? autolinker.link(feature.properties['id_unidadc'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['siglas'] !== null ? autolinker.link(feature.properties['siglas'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['dominio'] !== null ? autolinker.link(feature.properties['dominio'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['litogen_cl'] !== null ? autolinker.link(feature.properties['litogen_cl'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['dlo'] !== null ? autolinker.link(feature.properties['dlo'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['litologia'] !== null ? autolinker.link(feature.properties['litologia'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['simb_lito'] !== null ? autolinker.link(feature.properties['simb_lito'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['eon_era'] !== null ? autolinker.link(feature.properties['eon_era'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['subera'] !== null ? autolinker.link(feature.properties['subera'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['sistema'] !== null ? autolinker.link(feature.properties['sistema'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['serie'] !== null ? autolinker.link(feature.properties['serie'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['piso'] !== null ? autolinker.link(feature.properties['piso'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['litofacies'] !== null ? autolinker.link(feature.properties['litofacies'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['trama_c'] !== null ? autolinker.link(feature.properties['trama_c'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['color'] !== null ? autolinker.link(feature.properties['color'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Erdzeitalter</th>\
+                        <td>' + (feature.properties['eon_era'] !== null ? autolinker.link(feature.properties['eon_era'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_Erdzeitalter_0_0(feature) {
+        function style_Erdzeitalter_1_0(feature) {
             switch(String(feature.properties['eon_era'])) {
-                case 'CENOZOICO':
+                case 'Kaenozoikum':
                     return {
-                pane: 'pane_Erdzeitalter_0',
+                pane: 'pane_Erdzeitalter_1',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -133,12 +85,12 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(215,25,28,1.0)',
-                interactive: false,
+                interactive: true,
             }
                     break;
-                case 'MESOZOICO-CENOZOICO':
+                case 'Mesozoikum/Kaenozoikum':
                     return {
-                pane: 'pane_Erdzeitalter_0',
+                pane: 'pane_Erdzeitalter_1',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -148,12 +100,12 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(241,124,74,1.0)',
-                interactive: false,
+                interactive: true,
             }
                     break;
-                case 'MESOZOICO':
+                case 'Mesozoikum':
                     return {
-                pane: 'pane_Erdzeitalter_0',
+                pane: 'pane_Erdzeitalter_1',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -163,12 +115,12 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(254,201,128,1.0)',
-                interactive: false,
+                interactive: true,
             }
                     break;
-                case 'PALEOZOICO-MESOZOICO':
+                case 'Palaeozoikum/Mesozoikum':
                     return {
-                pane: 'pane_Erdzeitalter_0',
+                pane: 'pane_Erdzeitalter_1',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -178,12 +130,12 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(255,255,191,1.0)',
-                interactive: false,
+                interactive: true,
             }
                     break;
-                case 'PALEOZOICO':
+                case 'Palaeozoikum':
                     return {
-                pane: 'pane_Erdzeitalter_0',
+                pane: 'pane_Erdzeitalter_1',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -193,12 +145,12 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(199,233,173,1.0)',
-                interactive: false,
+                interactive: true,
             }
                     break;
-                case 'PROTEROZOICO-PALEOZOICO':
+                case 'Proterozoikum/Palaeozoikum':
                     return {
-                pane: 'pane_Erdzeitalter_0',
+                pane: 'pane_Erdzeitalter_1',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -208,12 +160,12 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(128,191,172,1.0)',
-                interactive: false,
+                interactive: true,
             }
                     break;
-                case 'PROTEROZOICO':
+                case 'Proterozoikum':
                     return {
-                pane: 'pane_Erdzeitalter_0',
+                pane: 'pane_Erdzeitalter_1',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -223,44 +175,40 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(43,131,186,1.0)',
-                interactive: false,
+                interactive: true,
             }
                     break;
             }
         }
-        map.createPane('pane_Erdzeitalter_0');
-        map.getPane('pane_Erdzeitalter_0').style.zIndex = 400;
-        map.getPane('pane_Erdzeitalter_0').style['mix-blend-mode'] = 'normal';
-        var layer_Erdzeitalter_0 = new L.geoJson(json_Erdzeitalter_0, {
+        map.createPane('pane_Erdzeitalter_1');
+        map.getPane('pane_Erdzeitalter_1').style.zIndex = 401;
+        map.getPane('pane_Erdzeitalter_1').style['mix-blend-mode'] = 'normal';
+        var layer_Erdzeitalter_1 = new L.geoJson(json_Erdzeitalter_1, {
             attribution: '',
-            interactive: false,
-            dataVar: 'json_Erdzeitalter_0',
-            layerName: 'layer_Erdzeitalter_0',
-            pane: 'pane_Erdzeitalter_0',
-            onEachFeature: pop_Erdzeitalter_0,
-            style: style_Erdzeitalter_0_0,
+            interactive: true,
+            dataVar: 'json_Erdzeitalter_1',
+            layerName: 'layer_Erdzeitalter_1',
+            pane: 'pane_Erdzeitalter_1',
+            onEachFeature: pop_Erdzeitalter_1,
+            style: style_Erdzeitalter_1_0,
         });
-        bounds_group.addLayer(layer_Erdzeitalter_0);
-        map.addLayer(layer_Erdzeitalter_0);
-        function pop_Lithologie_1(feature, layer) {
+        bounds_group.addLayer(layer_Erdzeitalter_1);
+        map.addLayer(layer_Erdzeitalter_1);
+        function pop_Lithologie_2(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <th scope="row">Lithologie</th>\
                         <td>' + (feature.properties['Lithologie'] !== null ? autolinker.link(feature.properties['Lithologie'].toLocaleString()) : '') + '</td>\
                     </tr>\
-                    <tr>\
-                        <th scope="row">Erdzeitalter</th>\
-                        <td>' + (feature.properties['Erdzeitalter'] !== null ? autolinker.link(feature.properties['Erdzeitalter'].toLocaleString()) : '') + '</td>\
-                    </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_Lithologie_1_0(feature) {
+        function style_Lithologie_2_0(feature) {
             switch(String(feature.properties['q2wHide_litologia'])) {
                 case 'Areniscas, conglomerados, arcillas; calizas y evaporitas':
                     return {
-                pane: 'pane_Lithologie_1',
+                pane: 'pane_Lithologie_2',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -275,7 +223,7 @@
                     break;
                 case 'Areniscas, pizarras y calizas':
                     return {
-                pane: 'pane_Lithologie_1',
+                pane: 'pane_Lithologie_2',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -290,7 +238,7 @@
                     break;
                 case 'Calizas detr�ticas, calcarenitas, margas, arcillas y calizas':
                     return {
-                pane: 'pane_Lithologie_1',
+                pane: 'pane_Lithologie_2',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -305,7 +253,7 @@
                     break;
                 case 'Calizas, dolom�as y margas. Areniscas y conglomerados':
                     return {
-                pane: 'pane_Lithologie_1',
+                pane: 'pane_Lithologie_2',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -320,7 +268,7 @@
                     break;
                 case 'Conglomerados, areniscas y lutitas':
                     return {
-                pane: 'pane_Lithologie_1',
+                pane: 'pane_Lithologie_2',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -335,7 +283,7 @@
                     break;
                 case 'Conglomerados, areniscas, arcillas y calizas. Evaporitas':
                     return {
-                pane: 'pane_Lithologie_1',
+                pane: 'pane_Lithologie_2',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -350,7 +298,7 @@
                     break;
                 case 'Conglomerados, areniscas, calizas, yesos y arcillas versicolores':
                     return {
-                pane: 'pane_Lithologie_1',
+                pane: 'pane_Lithologie_2',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -365,7 +313,7 @@
                     break;
                 case 'Conglomerados, areniscas, pizarras y calizas. Carb�n':
                     return {
-                pane: 'pane_Lithologie_1',
+                pane: 'pane_Lithologie_2',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -380,7 +328,7 @@
                     break;
                 case 'Cuarcitas, pizarras, areniscas y calizas':
                     return {
-                pane: 'pane_Lithologie_1',
+                pane: 'pane_Lithologie_2',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -395,7 +343,7 @@
                     break;
                 case 'Dolom�as, calizas y margas. Areniscas':
                     return {
-                pane: 'pane_Lithologie_1',
+                pane: 'pane_Lithologie_2',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -410,7 +358,7 @@
                     break;
                 case 'Gneisses':
                     return {
-                pane: 'pane_Lithologie_1',
+                pane: 'pane_Lithologie_2',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -425,7 +373,7 @@
                     break;
                 case 'Granitoides de dos micas':
                     return {
-                pane: 'pane_Lithologie_1',
+                pane: 'pane_Lithologie_2',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -440,7 +388,7 @@
                     break;
                 case 'Gravas, conglomerados, arenas y limos':
                     return {
-                pane: 'pane_Lithologie_1',
+                pane: 'pane_Lithologie_2',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -455,7 +403,7 @@
                     break;
                 case 'Micaesquistos, filitas, areniscas, m�rmoles, calizas, dolom�as y margas':
                     return {
-                pane: 'pane_Lithologie_1',
+                pane: 'pane_Lithologie_2',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -470,7 +418,7 @@
                     break;
                 case 'Otros granitoides':
                     return {
-                pane: 'pane_Lithologie_1',
+                pane: 'pane_Lithologie_2',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -485,7 +433,7 @@
                     break;
                 case 'Pizarras, grauwackas, cuarcitas y conglomerados':
                     return {
-                pane: 'pane_Lithologie_1',
+                pane: 'pane_Lithologie_2',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -500,7 +448,7 @@
                     break;
                 case 'Serpentinitas y peridotitas. Rocas b�sicas y ultrab�sicas':
                     return {
-                pane: 'pane_Lithologie_1',
+                pane: 'pane_Lithologie_2',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -515,7 +463,7 @@
                     break;
                 case 'Vulcanitas y rocas volcanocl�sticas':
                     return {
-                pane: 'pane_Lithologie_1',
+                pane: 'pane_Lithologie_2',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -530,21 +478,21 @@
                     break;
             }
         }
-        map.createPane('pane_Lithologie_1');
-        map.getPane('pane_Lithologie_1').style.zIndex = 401;
-        map.getPane('pane_Lithologie_1').style['mix-blend-mode'] = 'normal';
-        var layer_Lithologie_1 = new L.geoJson(json_Lithologie_1, {
+        map.createPane('pane_Lithologie_2');
+        map.getPane('pane_Lithologie_2').style.zIndex = 402;
+        map.getPane('pane_Lithologie_2').style['mix-blend-mode'] = 'normal';
+        var layer_Lithologie_2 = new L.geoJson(json_Lithologie_2, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_Lithologie_1',
-            layerName: 'layer_Lithologie_1',
-            pane: 'pane_Lithologie_1',
-            onEachFeature: pop_Lithologie_1,
-            style: style_Lithologie_1_0,
+            dataVar: 'json_Lithologie_2',
+            layerName: 'layer_Lithologie_2',
+            pane: 'pane_Lithologie_2',
+            onEachFeature: pop_Lithologie_2,
+            style: style_Lithologie_2_0,
         });
-        bounds_group.addLayer(layer_Lithologie_1);
-        map.addLayer(layer_Lithologie_1);
-        function pop_Andalusien_2(feature, layer) {
+        bounds_group.addLayer(layer_Lithologie_2);
+        map.addLayer(layer_Lithologie_2);
+        function pop_Andalusien_3(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['qc_id'] !== null ? autolinker.link(feature.properties['qc_id'].toLocaleString()) : '') + '</td>\
@@ -583,9 +531,9 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_Andalusien_2_0() {
+        function style_Andalusien_3_0() {
             return {
-                pane: 'pane_Andalusien_2',
+                pane: 'pane_Andalusien_3',
                 opacity: 1,
                 color: 'rgba(228,26,28,1.0)',
                 dashArray: '',
@@ -596,24 +544,24 @@
                 interactive: false,
             }
         }
-        map.createPane('pane_Andalusien_2');
-        map.getPane('pane_Andalusien_2').style.zIndex = 402;
-        map.getPane('pane_Andalusien_2').style['mix-blend-mode'] = 'normal';
-        var layer_Andalusien_2 = new L.geoJson(json_Andalusien_2, {
+        map.createPane('pane_Andalusien_3');
+        map.getPane('pane_Andalusien_3').style.zIndex = 403;
+        map.getPane('pane_Andalusien_3').style['mix-blend-mode'] = 'normal';
+        var layer_Andalusien_3 = new L.geoJson(json_Andalusien_3, {
             attribution: '',
             interactive: false,
-            dataVar: 'json_Andalusien_2',
-            layerName: 'layer_Andalusien_2',
-            pane: 'pane_Andalusien_2',
-            onEachFeature: pop_Andalusien_2,
-            style: style_Andalusien_2_0,
+            dataVar: 'json_Andalusien_3',
+            layerName: 'layer_Andalusien_3',
+            pane: 'pane_Andalusien_3',
+            onEachFeature: pop_Andalusien_3,
+            style: style_Andalusien_3_0,
         });
-        bounds_group.addLayer(layer_Andalusien_2);
-        map.addLayer(layer_Andalusien_2);
-        map.createPane('pane_PositronLabels_3');
-        map.getPane('pane_PositronLabels_3').style.zIndex = 403;
-        var layer_PositronLabels_3 = L.tileLayer('https://a.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}@2x.png', {
-            pane: 'pane_PositronLabels_3',
+        bounds_group.addLayer(layer_Andalusien_3);
+        map.addLayer(layer_Andalusien_3);
+        map.createPane('pane_GeographischeNamen_4');
+        map.getPane('pane_GeographischeNamen_4').style.zIndex = 404;
+        var layer_GeographischeNamen_4 = L.tileLayer('https://a.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}@2x.png', {
+            pane: 'pane_GeographischeNamen_4',
             opacity: 1.0,
             attribution: '<a href="https://cartodb.com/basemaps/">Map tiles by CartoDB, under CC BY 3.0. Data by OpenStreetMap, under ODbL.</a>',
             minZoom: 1,
@@ -621,45 +569,45 @@
             minNativeZoom: 0,
             maxNativeZoom: 20
         });
-        layer_PositronLabels_3;
-        map.addLayer(layer_PositronLabels_3);
+        layer_GeographischeNamen_4;
+        map.addLayer(layer_GeographischeNamen_4);
         var baseMaps = {};
-        L.control.layers(baseMaps,{"Positron Labels": layer_PositronLabels_3,'<img src="legend/Andalusien_2.png" /> Andalusien': layer_Andalusien_2,'Lithologie<br /><table><tr><td style="text-align: center;"><img src="legend/Lithologie_1_SandsteineKonglomerateToneKalksteineundEvaporite0.png" /></td><td>Sandsteine, Konglomerate, Tone; Kalksteine und Evaporite</td></tr><tr><td style="text-align: center;"><img src="legend/Lithologie_1_SandsteineSchieferundKalksteine1.png" /></td><td>Sandsteine, Schiefer und Kalksteine</td></tr><tr><td style="text-align: center;"><img src="legend/Lithologie_1_DetritalKalksteineKalzareniteMergelToneundKalksteine2.png" /></td><td>Detrital-Kalksteine, Kalzarenite, Mergel, Tone und Kalksteine</td></tr><tr><td style="text-align: center;"><img src="legend/Lithologie_1_KalksteineDolomiteundMergelSandsteineundKonglomerate3.png" /></td><td>Kalksteine, Dolomite und Mergel. Sandsteine und Konglomerate</td></tr><tr><td style="text-align: center;"><img src="legend/Lithologie_1_KonglomerateSandsteineundSchiefer4.png" /></td><td>Konglomerate, Sandsteine und Schiefer</td></tr><tr><td style="text-align: center;"><img src="legend/Lithologie_1_KonglomerateSandsteineToneundKalksteineEvaporite5.png" /></td><td>Konglomerate, Sandsteine, Tone und Kalksteine. Evaporite</td></tr><tr><td style="text-align: center;"><img src="legend/Lithologie_1_KonglomerateSandsteineKalksteineGipsundvielfarbigeTone6.png" /></td><td>Konglomerate, Sandsteine, Kalksteine, Gips und vielfarbige Tone</td></tr><tr><td style="text-align: center;"><img src="legend/Lithologie_1_KonglomerateSandsteineSchieferundKalksteineKohle7.png" /></td><td>Konglomerate, Sandsteine, Schiefer und Kalksteine. Kohle</td></tr><tr><td style="text-align: center;"><img src="legend/Lithologie_1_QuarziteSchieferSandsteineundKalksteine8.png" /></td><td>Quarzite, Schiefer, Sandsteine und Kalksteine</td></tr><tr><td style="text-align: center;"><img src="legend/Lithologie_1_DolomitenKalksteineundMergelSandsteine9.png" /></td><td>Dolomiten, Kalksteine und Mergel. Sandsteine</td></tr><tr><td style="text-align: center;"><img src="legend/Lithologie_1_Gneise10.png" /></td><td>Gneise</td></tr><tr><td style="text-align: center;"><img src="legend/Lithologie_1_ZweiGlimmerGranitoide11.png" /></td><td>Zwei-Glimmer-Granitoide</td></tr><tr><td style="text-align: center;"><img src="legend/Lithologie_1_KieseKonglomerateSandeundSchluffe12.png" /></td><td>Kiese, Konglomerate, Sande und Schluffe</td></tr><tr><td style="text-align: center;"><img src="legend/Lithologie_1_GlimmerschieferPhylliteSandsteineMarmoreKalksteineKalksteineDolomiteundMergel13.png" /></td><td>Glimmerschiefer, Phyllite, Sandsteine, Marmore, Kalksteine, Kalksteine, Dolomite und Mergel</td></tr><tr><td style="text-align: center;"><img src="legend/Lithologie_1_AndereGranitoide14.png" /></td><td>Andere Granitoide</td></tr><tr><td style="text-align: center;"><img src="legend/Lithologie_1_SchieferGrauwackenQuarziteundKonglomerate15.png" /></td><td>Schiefer, Grauwacken, Quarzite und Konglomerate</td></tr><tr><td style="text-align: center;"><img src="legend/Lithologie_1_SerpentiniteundPeridotiteBasischesundultrabasischesGestein16.png" /></td><td>Serpentinite und Peridotite. Basisches und ultrabasisches Gestein</td></tr><tr><td style="text-align: center;"><img src="legend/Lithologie_1_VulkaniteundvulkanoklastischeGesteine17.png" /></td><td>Vulkanite und vulkanoklastische Gesteine</td></tr></table>': layer_Lithologie_1,'Erdzeitalter<br /><table><tr><td style="text-align: center;"><img src="legend/Erdzeitalter_0_Kaenozoisch0.png" /></td><td>Kaenozoisch</td></tr><tr><td style="text-align: center;"><img src="legend/Erdzeitalter_0_MesozoischKaenozoisch1.png" /></td><td>Mesozoisch-Kaenozoisch</td></tr><tr><td style="text-align: center;"><img src="legend/Erdzeitalter_0_Mesozoisch2.png" /></td><td>Mesozoisch</td></tr><tr><td style="text-align: center;"><img src="legend/Erdzeitalter_0_PalaeozoischMesozoisch3.png" /></td><td>Palaeozoisch-Mesozoisch</td></tr><tr><td style="text-align: center;"><img src="legend/Erdzeitalter_0_Palaeozoisch4.png" /></td><td>Palaeozoisch</td></tr><tr><td style="text-align: center;"><img src="legend/Erdzeitalter_0_ProterozoischPalaeozoisch5.png" /></td><td>Proterozoisch-Palaeozoisch</td></tr><tr><td style="text-align: center;"><img src="legend/Erdzeitalter_0_Proterozoisch6.png" /></td><td>Proterozoisch</td></tr></table>': layer_Erdzeitalter_0,}).addTo(map);
+        L.control.layers(baseMaps,{"Geographische Namen": layer_GeographischeNamen_4,'<img src="legend/Andalusien_3.png" /> Andalusien': layer_Andalusien_3,'Lithologie<br /><table><tr><td style="text-align: center;"><img src="legend/Lithologie_2_SandsteineKonglomerateToneKalksteineundEvaporite0.png" /></td><td>Sandsteine, Konglomerate, Tone; Kalksteine und Evaporite</td></tr><tr><td style="text-align: center;"><img src="legend/Lithologie_2_SandsteineSchieferundKalksteine1.png" /></td><td>Sandsteine, Schiefer und Kalksteine</td></tr><tr><td style="text-align: center;"><img src="legend/Lithologie_2_DetritalKalksteineKalzareniteMergelToneundKalksteine2.png" /></td><td>Detrital-Kalksteine, Kalzarenite, Mergel, Tone und Kalksteine</td></tr><tr><td style="text-align: center;"><img src="legend/Lithologie_2_KalksteineDolomiteundMergelSandsteineundKonglomerate3.png" /></td><td>Kalksteine, Dolomite und Mergel. Sandsteine und Konglomerate</td></tr><tr><td style="text-align: center;"><img src="legend/Lithologie_2_KonglomerateSandsteineundSchiefer4.png" /></td><td>Konglomerate, Sandsteine und Schiefer</td></tr><tr><td style="text-align: center;"><img src="legend/Lithologie_2_KonglomerateSandsteineToneundKalksteineEvaporite5.png" /></td><td>Konglomerate, Sandsteine, Tone und Kalksteine. Evaporite</td></tr><tr><td style="text-align: center;"><img src="legend/Lithologie_2_KonglomerateSandsteineKalksteineGipsundvielfarbigeTone6.png" /></td><td>Konglomerate, Sandsteine, Kalksteine, Gips und vielfarbige Tone</td></tr><tr><td style="text-align: center;"><img src="legend/Lithologie_2_KonglomerateSandsteineSchieferundKalksteineKohle7.png" /></td><td>Konglomerate, Sandsteine, Schiefer und Kalksteine. Kohle</td></tr><tr><td style="text-align: center;"><img src="legend/Lithologie_2_QuarziteSchieferSandsteineundKalksteine8.png" /></td><td>Quarzite, Schiefer, Sandsteine und Kalksteine</td></tr><tr><td style="text-align: center;"><img src="legend/Lithologie_2_DolomitenKalksteineundMergelSandsteine9.png" /></td><td>Dolomiten, Kalksteine und Mergel. Sandsteine</td></tr><tr><td style="text-align: center;"><img src="legend/Lithologie_2_Gneise10.png" /></td><td>Gneise</td></tr><tr><td style="text-align: center;"><img src="legend/Lithologie_2_ZweiGlimmerGranitoide11.png" /></td><td>Zwei-Glimmer-Granitoide</td></tr><tr><td style="text-align: center;"><img src="legend/Lithologie_2_KieseKonglomerateSandeundSchluffe12.png" /></td><td>Kiese, Konglomerate, Sande und Schluffe</td></tr><tr><td style="text-align: center;"><img src="legend/Lithologie_2_GlimmerschieferPhylliteSandsteineMarmoreKalksteineKalksteineDolomiteundMergel13.png" /></td><td>Glimmerschiefer, Phyllite, Sandsteine, Marmore, Kalksteine, Kalksteine, Dolomite und Mergel</td></tr><tr><td style="text-align: center;"><img src="legend/Lithologie_2_AndereGranitoide14.png" /></td><td>Andere Granitoide</td></tr><tr><td style="text-align: center;"><img src="legend/Lithologie_2_SchieferGrauwackenQuarziteundKonglomerate15.png" /></td><td>Schiefer, Grauwacken, Quarzite und Konglomerate</td></tr><tr><td style="text-align: center;"><img src="legend/Lithologie_2_SerpentiniteundPeridotiteBasischesundultrabasischesGestein16.png" /></td><td>Serpentinite und Peridotite. Basisches und ultrabasisches Gestein</td></tr><tr><td style="text-align: center;"><img src="legend/Lithologie_2_VulkaniteundvulkanoklastischeGesteine17.png" /></td><td>Vulkanite und vulkanoklastische Gesteine</td></tr></table>': layer_Lithologie_2,'Erdzeitalter<br /><table><tr><td style="text-align: center;"><img src="legend/Erdzeitalter_1_Kaenozoisch0.png" /></td><td>Kaenozoisch</td></tr><tr><td style="text-align: center;"><img src="legend/Erdzeitalter_1_MesozoischKaenozoisch1.png" /></td><td>Mesozoisch-Kaenozoisch</td></tr><tr><td style="text-align: center;"><img src="legend/Erdzeitalter_1_Mesozoisch2.png" /></td><td>Mesozoisch</td></tr><tr><td style="text-align: center;"><img src="legend/Erdzeitalter_1_PalaeozoischMesozoisch3.png" /></td><td>Palaeozoisch-Mesozoisch</td></tr><tr><td style="text-align: center;"><img src="legend/Erdzeitalter_1_Palaeozoisch4.png" /></td><td>Palaeozoisch</td></tr><tr><td style="text-align: center;"><img src="legend/Erdzeitalter_1_ProterozoischPalaeozoisch5.png" /></td><td>Proterozoisch-Palaeozoisch</td></tr><tr><td style="text-align: center;"><img src="legend/Erdzeitalter_1_Proterozoisch6.png" /></td><td>Proterozoisch</td></tr></table>': layer_Erdzeitalter_1,"TopPlusOpen Light Grau": layer_TopPlusOpenLightGrau_0,}).addTo(map);
         map.on("zoomend", function(){
 
-                if (map.hasLayer(layer_Lithologie_1)) {
+                if (map.hasLayer(layer_Lithologie_2)) {
                     if (map.getZoom() <= 14 && map.getZoom() >= 19) {
-                        layer_Lithologie_1.eachLayer(function (layer) {
+                        layer_Lithologie_2.eachLayer(function (layer) {
                             layer.openTooltip();
                         });
                     } else {
-                        layer_Lithologie_1.eachLayer(function (layer) {
+                        layer_Lithologie_2.eachLayer(function (layer) {
                             layer.closeTooltip();
                         });
                     }
                 }
         });
         setBounds();
-                if (map.hasLayer(layer_Lithologie_1)) {
+                if (map.hasLayer(layer_Lithologie_2)) {
                     if (map.getZoom() <= 14 && map.getZoom() >= 19) {
-                        layer_Lithologie_1.eachLayer(function (layer) {
+                        layer_Lithologie_2.eachLayer(function (layer) {
                             layer.openTooltip();
                         });
                     } else {
-                        layer_Lithologie_1.eachLayer(function (layer) {
+                        layer_Lithologie_2.eachLayer(function (layer) {
                             layer.closeTooltip();
                         });
                     }
                 }
-        resetLabels([layer_Lithologie_1]);
+        resetLabels([layer_Lithologie_2]);
         map.on("zoomend", function(){
-            resetLabels([layer_Lithologie_1]);
+            resetLabels([layer_Lithologie_2]);
         });
         map.on("layeradd", function(){
-            resetLabels([layer_Lithologie_1]);
+            resetLabels([layer_Lithologie_2]);
         });
         map.on("layerremove", function(){
-            resetLabels([layer_Lithologie_1]);
+            resetLabels([layer_Lithologie_2]);
         });
         </script>
     </body>
